@@ -43,6 +43,18 @@ int main()
 	{
 		system("cls");
 
+		if (GetAsyncKeyState(VK_LEFT))
+		{
+			player.x--;
+
+		}
+		if (GetAsyncKeyState(VK_RIGHT))
+		{
+			player.x++;
+
+		}
+
+
 		for (int i = 0; i < OBJ_COUNT; i++)
 		{
 			if (!objects[i].act)
@@ -67,8 +79,16 @@ int main()
 					objects[i].act = false;
 				}
 
+				if (player.x == objects[i].x && player.y == objects[i].y)
+				{
+					hp--;
+
+				}
+
 			}
 		}
+
+	
 
 		//그려주는거
 		for (int i = 0; i < OBJ_COUNT; i++)
