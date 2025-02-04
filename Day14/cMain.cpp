@@ -104,6 +104,20 @@ int main()
 
 		}
 
+		if (GetAsyncKeyState(VK_SPACE))
+		{
+			for (int i = 0; i < BULLET_COUNT; i++)
+			{
+				if (!bullets[i].act)
+				{
+					bullets[i].x = player.x;
+					bullets[i].y = player.y - 1;
+					bullets[i].act = true;
+					break;
+				}
+			}
+		}
+
 		spawnTime++;
 		if (spawnTime >= spawnMaxTime)
 		{
