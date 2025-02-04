@@ -1,6 +1,36 @@
 #include <stdio.h>
 #include <Windows.h>
 
+#pragma region Enum
+enum Color
+{
+	Black,
+	DarkBlue,
+	DarkGreen,
+	DarkCyan,
+	DarkRed,
+	DarkMagenta,
+	DarkYellow,
+	Gray,
+	DarkGray,
+	Blue,
+	Green,
+	Cyan,
+	Red,
+	Magenta,
+	Yellow,
+	White,
+};
+#pragma endregion
+
+
+//색깔 바꾸기
+void ChangeColor(Color color)
+{
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);
+}
+
+
 void SetPosition(int x, int y)
 {
 	COORD pos;
@@ -9,7 +39,7 @@ void SetPosition(int x, int y)
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
 }
 
-#define OBJ_COUNT 3
+#define OBJ_COUNT 10
 
 
 struct Obj
@@ -90,16 +120,21 @@ int main()
 
 	
 
-		//그려주는거
+
+		ChangeColor(Green);
 		for (int i = 0; i < OBJ_COUNT; i++)
 		{
 			SetPosition(objects[i].x, objects[i].y);
 			printf(objects[i].shape);
 		}
 
+
+		ChangeColor(White);
 		SetPosition(player.x, player.y);
 		printf(player.shape);
 
+
+		ChangeColor(Red);
 		for (int i = 0; i < hp; i++)
 		{
 			SetPosition(30 + i, 0);
