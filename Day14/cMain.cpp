@@ -61,6 +61,8 @@ struct Obj
 };
 
 int hp = 3;
+int spawnTime = 0;
+int spawnMaxTime = 30;
 
 int main()
 {
@@ -90,32 +92,40 @@ int main()
 
 		}
 
-
-		for (int i = 0; i < OBJ_COUNT; i++)
+		spawnTime++;
+		if (spawnTime >= spawnMaxTime)
 		{
-			if (!objects[i].act)
-			{
-				objects[i].act = true;
-				objects[i].x = rand() % 40;
-				objects[i].y = 1;
-				objects[i].type = (ObjType)(rand() % 2); // 0~1
-				switch (objects[i].type)			
-				{
-				case Heart:
-					objects[i].shape = "¢¾";
-					objects[i].color = Red;
-					break;
-				case Poo:
-					objects[i].shape = "¢Í";
-					objects[i].color = Green;
-					break;
-				default:
-					break;
-				}
-				break;
+			spawnTime = 0;
+			spawnMaxTime--;
 
+
+			for (int i = 0; i < OBJ_COUNT; i++)
+			{
+				if (!objects[i].act)
+				{
+					objects[i].act = true;
+					objects[i].x = rand() % 40;
+					objects[i].y = 1;
+					objects[i].type = (ObjType)(rand() % 2); // 0~1
+					switch (objects[i].type)
+					{
+					case Heart:
+						objects[i].shape = "¢¾";
+						objects[i].color = Red;
+						break;
+					case Poo:
+						objects[i].shape = "¢Í";
+						objects[i].color = Green;
+						break;
+					default:
+						break;
+					}
+					break;
+
+				}
 			}
 		}
+
 
 		for (int i = 0; i < OBJ_COUNT; i++)
 		{
