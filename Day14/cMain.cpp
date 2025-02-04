@@ -48,6 +48,7 @@ void SetPosition(int x, int y)
 }
 
 #define OBJ_COUNT 50
+#define BULLET_COUNT 10
 
 
 struct Obj
@@ -76,6 +77,17 @@ int main()
 	player.x = 15;
 	player.y = 30;
 	player.shape = "¢¼";
+
+	Obj bullets[BULLET_COUNT];
+	for (int i = 0; i < BULLET_COUNT; i++)
+	{
+		bullets[i].act = false;
+		bullets[i].x = i;
+		bullets[i].y = player.y + 1;
+		bullets[i].color = Blue;
+		bullets[i].shape = "¡Ü";
+	}
+
 
 	while (true)
 	{
@@ -173,6 +185,14 @@ int main()
 				printf(objects[i].shape);
 			}
 			
+		}
+
+		for (int i = 0; i < BULLET_COUNT; i++)
+		{
+			ChangeColor(bullets[i].color);
+			SetPosition(bullets[i].x, bullets[i].y);
+			printf(bullets[i].shape);
+
 		}
 
 
