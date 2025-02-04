@@ -198,6 +198,21 @@ int main()
 					bullets[i].x = i;
 					bullets[i].y = player.y + 1;
 				}
+
+
+				for (int j = 0; j < OBJ_COUNT; j++)
+				{
+					if (objects[j].act)
+					{
+						if (bullets[i].x == objects[j].x && bullets[i].y == objects[j].y)
+						{
+
+							objects[j].act = false;
+
+						}
+					}
+
+				}
 			}
 
 		}
