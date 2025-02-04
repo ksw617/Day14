@@ -21,6 +21,14 @@ enum Color
 	Yellow,
 	White,
 };
+
+
+enum ObjType
+{
+	Heart,
+	Poo,
+};
+
 #pragma endregion
 
 
@@ -39,7 +47,7 @@ void SetPosition(int x, int y)
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
 }
 
-#define OBJ_COUNT 10
+#define OBJ_COUNT 50
 
 
 struct Obj
@@ -48,6 +56,8 @@ struct Obj
 	int x;
 	int y;
 	const char* shape;
+	Color color;
+	ObjType type;
 };
 
 int hp = 3;
@@ -58,10 +68,6 @@ int main()
 	for (int i = 0; i < OBJ_COUNT; i++)
 	{
 		objects[i].act = false;
-		objects[i].x = rand() % 40;
-		objects[i].y = 1;
-		objects[i].shape = "¢Í";
-
 	}
 
 	Obj player;
@@ -92,6 +98,20 @@ int main()
 				objects[i].act = true;
 				objects[i].x = rand() % 40;
 				objects[i].y = 1;
+				objects[i].type = (ObjType)(rand() % 2); // 0~1
+				switch (objects[i].type)			
+				{
+				case Heart:
+					objects[i].shape = "¢¾";
+					objects[i].color = Red;
+					break;
+				case Poo:
+					objects[i].shape = "¢Í";
+					objects[i].color = Green;
+					break;
+				default:
+					break;
+				}
 				break;
 
 			}
@@ -111,7 +131,19 @@ int main()
 
 				if (player.x == objects[i].x && player.y == objects[i].y)
 				{
-					hp--;
+					switch (objects[i].type)
+					{
+					case Heart:
+						hp++;
+						break;
+
+					case Poo:
+						hp--;
+						break;
+
+					default:
+						break;
+					}
 
 				}
 
@@ -121,11 +153,16 @@ int main()
 	
 
 
-		ChangeColor(Green);
+	
 		for (int i = 0; i < OBJ_COUNT; i++)
 		{
-			SetPosition(objects[i].x, objects[i].y);
-			printf(objects[i].shape);
+			if (objects[i].act)
+			{
+				ChangeColor(objects[i].color);
+				SetPosition(objects[i].x, objects[i].y);
+				printf(objects[i].shape);
+			}
+			
 		}
 
 
