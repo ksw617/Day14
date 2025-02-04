@@ -187,7 +187,22 @@ int main()
 		}
 
 	
+		for (int i = 0; i < BULLET_COUNT; i++)
+		{
+			if (bullets[i].act)
+			{
+				bullets[i].y--;
+				if (bullets[i].y <= 0)
+				{
+					bullets[i].act = false;
+					bullets[i].x = i;
+					bullets[i].y = player.y + 1;
+				}
+			}
 
+		}
+
+		//========================= ±×¸®±â ============================//
 
 	
 		for (int i = 0; i < OBJ_COUNT; i++)
