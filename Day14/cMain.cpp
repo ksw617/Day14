@@ -27,6 +27,7 @@ enum ObjType
 {
 	Heart,
 	Poo,
+	Guard,
 };
 
 #pragma endregion
@@ -64,6 +65,8 @@ struct Obj
 int hp = 3;
 int spawnTime = 0;
 int spawnMaxTime = 30;
+
+int guardTime = 0;
 
 int main()
 {
@@ -132,7 +135,7 @@ int main()
 					objects[i].act = true;
 					objects[i].x = rand() % 40;
 					objects[i].y = 1;
-					objects[i].type = (ObjType)(rand() % 2); // 0~1
+					objects[i].type = (ObjType)(rand() % 3); // 0~1
 					switch (objects[i].type)
 					{
 					case Heart:
@@ -143,6 +146,9 @@ int main()
 						objects[i].shape = "ขอ";
 						objects[i].color = Green;
 						break;
+					case Guard:
+						objects[i].shape = "กÝ";
+						objects[i].color = Yellow;
 					default:
 						break;
 					}
@@ -150,6 +156,11 @@ int main()
 
 				}
 			}
+		}
+
+		if (guardTime > 0)
+		{
+			guardTime--;
 		}
 
 
@@ -174,9 +185,15 @@ int main()
 						break;
 
 					case Poo:
-						hp--;
+						if (guardTime != 0)
+						{
+							hp--;
+						}
 						break;
 
+					case Guard:
+						guardTime += 10;
+						break;
 					default:
 						break;
 					}
@@ -204,12 +221,18 @@ int main()
 				{
 					if (objects[j].act)
 					{
-						if (bullets[i].x == objects[j].x && bullets[i].y == objects[j].y)
+						if (bullets[i].x == objects[j].x)
 						{
-
-							objects[j].act = false;
+							if (bullets[i].y == objects[j].y || bullets[i].y + 1 == objects[j].y)
+							{
+								objects[j].act = false;
+								bullets[i].act = false;
+								bullets[i].x = i;
+								bullets[i].y = player.y + 1;
+							}
 
 						}
+
 					}
 
 				}
