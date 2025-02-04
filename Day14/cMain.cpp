@@ -9,7 +9,7 @@ void SetPosition(int x, int y)
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
 }
 
-#define OBJ_COUNT 30
+#define OBJ_COUNT 3
 
 
 struct Obj
@@ -20,6 +20,8 @@ struct Obj
 	const char* shape;
 };
 
+int hp = 3;
+
 int main()
 {
 	Obj objects[OBJ_COUNT];
@@ -27,7 +29,7 @@ int main()
 	{
 		objects[i].act = false;
 		objects[i].x = rand() % 40;
-		objects[i].y = 0;
+		objects[i].y = 1;
 		objects[i].shape = "¢Í";
 
 	}
@@ -41,10 +43,9 @@ int main()
 		{
 			if (!objects[i].act)
 			{
-
 				objects[i].act = true;
 				objects[i].x = rand() % 40;
-				objects[i].y = 0;
+				objects[i].y = 1;
 				break;
 
 			}
@@ -72,6 +73,13 @@ int main()
 		{
 			SetPosition(objects[i].x, objects[i].y);
 			printf(objects[i].shape);
+		}
+
+		for (int i = 0; i < hp; i++)
+		{
+			SetPosition(30 + i, 0);
+			printf("¢¾");
+
 		}
 
 		Sleep(50);
