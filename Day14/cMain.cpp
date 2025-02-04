@@ -34,11 +34,15 @@ int main()
 
 	}
 
+	Obj player;
+	player.x = 15;
+	player.y = 30;
+	player.shape = "♠";
+
 	while (true)
 	{
 		system("cls");
 
-		//활성화 되어 있지 않다면 하나씩 활성화 시켜주기
 		for (int i = 0; i < OBJ_COUNT; i++)
 		{
 			if (!objects[i].act)
@@ -51,8 +55,6 @@ int main()
 			}
 		}
 
-		//활성화 되어 있으면 내려주는거
-		//내려가다가 일정 높이 밑으로 내려가면 비활성화
 		for (int i = 0; i < OBJ_COUNT; i++)
 		{
 			if (objects[i].act)
@@ -74,6 +76,9 @@ int main()
 			SetPosition(objects[i].x, objects[i].y);
 			printf(objects[i].shape);
 		}
+
+		SetPosition(player.x, player.y);
+		printf(player.shape);
 
 		for (int i = 0; i < hp; i++)
 		{
